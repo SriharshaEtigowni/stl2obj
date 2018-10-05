@@ -51,6 +51,8 @@ void ImportSTL::load(Geometry& model)
     char numStr[4];
     fileSTL.read(numStr, 4);
     unsigned numOfTris = *(uint32_t*)numStr;
+
+    if(125000 > numOfTris){
     std::cout << "Reading " << numOfTris << " triangles ..." << std::endl;
 
 //  build search tree
@@ -84,8 +86,14 @@ void ImportSTL::load(Geometry& model)
     std::chrono::duration<double> duration = 
         std::chrono::high_resolution_clock::now() - t0;
     std::cout << "Finished reading STL in " << (double)duration.count() <<
-        " seconds!" << std::endl;
-        
+        " seconds!" << std::endl;     
+	}
+    else{
+	std::cout << "Skipping because the number of triangles is  " << numOfTris << std::endl;
+	}
 
 }
+
+
+
 
